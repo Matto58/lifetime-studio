@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lifetime-studio", "lifetime
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "liblifetime", "lifetime\liblifetime\liblifetime.csproj", "{2205B74C-DF4F-436C-95D7-B1DDC2450BA3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordRPC", "discord-rpc-csharp-net8\DiscordRPC\DiscordRPC.csproj", "{5620C389-5F11-4993-8352-905B6303FE14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2205B74C-DF4F-436C-95D7-B1DDC2450BA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2205B74C-DF4F-436C-95D7-B1DDC2450BA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2205B74C-DF4F-436C-95D7-B1DDC2450BA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5620C389-5F11-4993-8352-905B6303FE14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5620C389-5F11-4993-8352-905B6303FE14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5620C389-5F11-4993-8352-905B6303FE14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5620C389-5F11-4993-8352-905B6303FE14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

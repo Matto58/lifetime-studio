@@ -1,3 +1,6 @@
+using DiscordRPC;
+using DiscordRPC.Logging;
+using Mattodev.Lifetime;
 
 namespace lifetime_studio
 {
@@ -9,10 +12,19 @@ namespace lifetime_studio
 		int bg1R, bg1G, bg1B;
 		int bg2R, bg2G, bg2B;
 		Font? guifont;
+		DiscordRpcClient rpc;
 		public Form1()
 		{
 			InitializeComponent();
 			reloadPrefs();
+
+			rpc = new("1287798464427720810");
+			rpc.Logger = new FileLogger("rpc.log");
+			rpc.OnReady += (sender, e) => rpc.Logger.Info("rpc is ready as " + e.User.DisplayName);
+			rpc.OnPresenceUpdate += (sender, e) => rpc.Logger.Info("weather update: " + e.Presence);
+
+			rpc.Initialize();
+			reloadRPC();
 		}
 
 		private void reloadPrefs()
@@ -57,6 +69,18 @@ namespace lifetime_studio
 				}
 			}
 		}
+		private void reloadRPC(bool runningScript = false)
+		{
+			rpc.SetPresence(new()
+			{
+				Details = (runningScript ? "Running " : "Editing ") + Path.GetFileName(filename),
+				State = "v" + LSInfo.Version + "/Lifetime v" + LTInfo.Version,
+				Assets = new()
+				{
+					LargeImageKey = "https://czechgdps.ps.fhgdps.com/bos_ee/lslogo.png"
+				}
+			});
+		}
 
 		private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -84,7 +108,10 @@ namespace lifetime_studio
 			var txtC = Color.FromArgb(txtR, txtG, txtB);
 			var bg1C = Color.FromArgb(bg1R, bg1G, bg1B);
 			var bg2C = Color.FromArgb(bg2R, bg2G, bg2B);
-			new Executor(filename, txtC, bg1C, bg2C, guifont!, editBox.Font).Show();
+			reloadRPC(true);
+			Executor ex = new(filename, txtC, bg1C, bg2C, guifont!, editBox.Font);
+			ex.FormClosing += (_, _) => reloadRPC();
+			ex.Show();
 		}
 
 		private void editBox_TextChanged(object sender, EventArgs e)
@@ -105,6 +132,7 @@ namespace lifetime_studio
 			}
 			label1.Text = filename;
 			File.WriteAllLines(filename, editBox.Lines);
+			reloadRPC();
 			return true;
 		}
 
@@ -125,6 +153,12 @@ namespace lifetime_studio
 			editBox.Lines = File.ReadAllLines(openFileDialog1.FileName);
 			filename = openFileDialog1.FileName;
 			label1.Text = filename;
+			reloadRPC();
+		}
+
+		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			rpc.Dispose();
 		}
 	}
 }

@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\discord-rpc-csharp-net8\DiscordRPC\DiscordRPC.csproj" />
     <ProjectReference Include="..\lifetime\liblifetime\liblifetime.csproj" />
   </ItemGroup>
 

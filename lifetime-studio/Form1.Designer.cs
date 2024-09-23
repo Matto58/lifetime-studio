@@ -215,6 +215,7 @@
 			MinimumSize = new Size(500, 300);
 			Name = "Form1";
 			Text = "Lifetime Studio";
+			FormClosed += Form1_FormClosed;
 			menuStrip1.ResumeLayout(false);
 			menuStrip1.PerformLayout();
 			ResumeLayout(false);
